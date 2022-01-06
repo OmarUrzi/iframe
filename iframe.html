@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h3>Campaign ID</h3>
+    <input list="myList" name="myList" id="myLists">
+    <datalist id="myList"></datalist>
+    <script>
+	
+      let query = "query { boards (ids: 310132658) { groups (ids: topics){ items(limit:250){name id column_values(ids:[status estado90]){text}} }}}";
+let list = document.getElementById("myList");
+fetch ("https://api.monday.com/v2", {
+  method: 'post',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization' : 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjcwNzUzMDkxLCJ1aWQiOjEwMjI4MjM5LCJpYWQiOiIyMDIwLTA4LTE5VDE5OjIxOjQwLjAwMFoiLCJwZXIiOiJtZTp3cml0ZSIsImFjdGlkIjo0NjQyNjA0LCJyZ24iOiJ1c2UxIn0.x4HdrZ0LYn_cvsGAHdgEU6pXPyaRMm9bsvA7Uy6SQSo'
+   },
+   body: JSON.stringify({
+     query : query
+   })
+  })
+   .then(res => res.json())
+   .then(function res(res){
+   console.log("ahora se viene")
+  res.data.boards[0].groups[0].items.map((value) =>{
+  let item= value.name + " - Ø" + value.id
+  let li = document.createElement("option");
+        li.innerText = item;
+        list.appendChild(li);
+  })
+		  
+  } );
+      /*data.Actors.forEach((item) => {
+        let li = document.createElement("option");
+        li.innerText = item;
+        list.appendChild(li);
+      });
+      });  */
+    </script>
+  </body>
+</html>
